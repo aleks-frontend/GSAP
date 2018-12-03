@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>test</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .box {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: green;
+            position: absolute;
+            left: 0;
+            opacity: 0;
+        }
+
+        .box--2 {
+            background: red;
+        }
+
+        .box--3 {
+            background: yellow;
+        }
+
+        .text {
+            position: absolute;
+            font-size: 50px;
+            top: 0;
+            left: 0;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            align-self: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            color: #BADA55;
+        }
+    </style>
+</head>
+<body>
+<div class="box box--1"></div>
+<div class="box box--2"></div>
+<div class="box box--3"></div>
+<div class="text">Hello GSAP!</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+<script type="text/javascript">
+
+const circleDuration = 2;
+const tl = new TimelineMax();
+
+tl.set('.text', { opacity: 0 })
+    .to('.box', circleDuration, {
+        opacity: 1
+    })
+    .to('.box--1', circleDuration, { x: 200 }, `-=${circleDuration}`)
+    .to('.box--2', circleDuration, { y: 200 }, `-=${circleDuration}`)
+    .to('.text', 0.5, {
+        rotation: 315,
+        opacity: 1
+    }, '-=0.5');
+
+</script>
+</body>
+</html>

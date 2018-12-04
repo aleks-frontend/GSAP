@@ -94,68 +94,96 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 <script type="text/javascript">
 
-const restart = document.querySelector('.restart');
-const circleDuration = 2;
-const tl = new TimelineMax();
+const restart = document.querySelector('.restart'); 
 
-tl.set('.text', { 
-    opacity: 0,
-    scale: 0.8
-    })
-    .set('.box', {
-        opacity: 0,
-        x: 0,
-        y: 0
-    })
-    .set('.box--3', { scale: 0 })
-    .set('.square', {
-        opacity: 0,
-        scale: 0,
-        y: -100
-    })
-    .to('.box', circleDuration, {
-        opacity: 0.8
-    }).add('go')
-    .to('.box--3', circleDuration, { scale: 1, ease: Elastic.easeOut }, `go-=${circleDuration}`)
-    .to('.box--2', circleDuration, { y: 150, ease: Elastic.easeOut }, `go-=${circleDuration}`)
-    .to('.box--1', circleDuration, { x: 150, ease: Elastic.easeOut }, `go-=${circleDuration}`)
-    .to('.text', 0.5, {
-        rotation: 315,
-        opacity: 1
-    }, '-=0.5')
-    .to('.square', 1, {
-        opacity: 0.8,
-        scale: 1,
-        y: 150,
-        x: 150,
-        rotation: 400
-    })
-    .to('.square', 0.5, {
-        scale: 5,
-        opacity: 0,
-        rotation: 600
-    })
-    .add('final')
-    .to('.text', 0.5, {
-        rotation: 0,
-        y: -100,
-        color: '#fff',
-        scale: 1
-    }, 'final-=0.5')
-    .to('.box--2', 0.5, {
-        opacity: 0,
-        scale: 0
-    }, 'final')
-    .to('.box--1', 0.3, {
-        x: 0,
-        scale: 1
-    }, 'final')
-    .to('.box--3', 0.3, {
-        x: 150,
-        scale: 1.1
-    }, 'final');
+function animation() {
+    const circleDuration = 2;
+    const tl = new TimelineMax();
 
-restart.addEventListener('click', () => tl.restart());
+    tl.set('.text', { 
+        opacity: 0,
+        scale: 0.8
+        })
+        .set('.box', {
+            opacity: 0,
+            x: 0,
+            y: 0
+        })
+        .set('.box--3', { scale: 0 })
+        .set('.square', {
+            opacity: 0,
+            scale: 0,
+            y: -100
+        })
+        .to('.box', circleDuration, {
+            opacity: 0.8
+        }).add('go')
+        .to('.box--3', circleDuration, { scale: 1, ease: Elastic.easeOut }, `go-=${circleDuration}`)
+        .to('.box--2', circleDuration, { y: 150, ease: Elastic.easeOut }, `go-=${circleDuration}`)
+        .to('.box--1', circleDuration, { x: 150, ease: Elastic.easeOut }, `go-=${circleDuration}`)
+        .to('.text', 0.5, {
+            rotation: 315,
+            opacity: 1
+        }, '-=0.5')
+        .to('.square', 1, {
+            opacity: 0.8,
+            scale: 1,
+            y: 150,
+            x: 150,
+            rotation: 400
+        })
+        .to('.square', 0.5, {
+            scale: 5,
+            opacity: 0,
+            rotation: 600
+        })
+        .add('final')
+        .to('.text', 0.5, {
+            rotation: 0,
+            y: -100,
+            color: '#fff',
+            scale: 1
+        }, 'final-=0.5')
+        .to('.box--2', 0.5, {
+            opacity: 0,
+            scale: 0
+        }, 'final')
+        .to('.box--1', 2, {
+            x: 0,
+            scale: 1,
+            ease: Elastic.easeOut
+        }, 'final')
+        .to('.box--3', 2, {
+            x: 150,
+            scale: 1.1,
+            ease: Elastic.easeOut
+        }, 'final');
+
+
+    return tl;
+}
+
+function background() {
+    const tl = new TimelineMax();
+    const body = document.body;
+
+    tl.to(body, 2.5, {
+        backgroundColor: '#FFBC67'
+    })
+    .to(body, 2.5, {
+        backgroundColor: '#fff'
+    }, '+=0.5');
+
+    return tl;
+}
+
+const master = new TimelineMax();
+
+master.add('start')
+    .add(background(), 'background')
+    .add(animation(), 'start');
+
+restart.addEventListener('click', () => master.restart());
 </script>
 </body>
 </html>
